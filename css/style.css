@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.board_game{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+body{
+    background-color: gray;
+}
