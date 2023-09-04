@@ -5,6 +5,8 @@ let seedY;
 let dirX =10;
 let dirY = 0;
 
+let flag = false;
+
 canvas.width = 400;
 canvas.height = 400;
 
@@ -16,10 +18,10 @@ context.fillRect(0, 0, canvas.width, canvas.height)
 context.strokeRect(0, 0, canvas.width, canvas.height);
 
 let snake = [
-    { x: 100, y: 100 },
-    { x: 110, y: 100 },
-    { x: 120, y: 100 },
+    { x: 140, y: 100 },
     { x: 130, y: 100 },
+    { x: 120, y: 100 },
+    { x: 110, y: 100 },
 ]
 
 let snakeDraw = ()=>{
@@ -76,6 +78,9 @@ function clear () {
 
 function changeDir(e) {
     let pressed = e.keyCode;
+    if (flag) return  ;
+    flag = true;    
+    
     if (pressed == 37 && dirX != 10) {
         dirX = -10;
         dirY = 0;
@@ -92,10 +97,31 @@ function changeDir(e) {
     }
 }
 
+function gameOver() {
+    for (let i = 1; i < snake.length; i++) {
+        // console.log(snake[0].x , snake[i].x ,snake[0].y , snake[i].y);
+     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) return true;  
+    }
+    if (snake[0].x == 0) return true;
+    if (snake[0].x >= canvas.width -10) return true;
+    if (snake[0].y == 0) return true;
+    if (snake[0].y >= canvas.height -10) return true;
+}
+
 generateSeed();
-setInterval(()=> {
-    clear();
-    seedDraw();
-    moving();
-    snakeDraw();
-} , 100)
+run();
+function run() {
+
+    if (gameOver()) return;
+    
+    setTimeout(()=> {
+        flag=false;
+        clear();
+        seedDraw();
+        moving();
+        snakeDraw();
+
+        run();
+    } , 100) 
+}
+
