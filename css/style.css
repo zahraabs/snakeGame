@@ -4,12 +4,34 @@
     box-sizing: border-box;
 }
 
-.board_game{
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-}
-
 body{
     background-color: gray;
 }
+
+.board_game ,.setting{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.setting{
+    flex-direction: row;
+    gap: 100px;
+}
+
+.setting button{
+    padding: 10px;
+    background-color:plum;
+    border-radius: 8px;
+    outline: 0;
+    border: 1px solid purple;
+    cursor: pointer;
+}
+
+.setting button:hover{
+    background-color: rebeccapurple;
+    color: white;
+}
+
