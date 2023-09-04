@@ -1,5 +1,6 @@
 const canvas = document.querySelector("canvas");
 const reset = document.querySelector("button");
+const sound = document.querySelector("audio");
 const context = canvas.getContext("2d");
 
 let seedX;
@@ -7,9 +8,9 @@ let seedY;
 let dirX = 10;
 let dirY = 0;
 let score = 0;
+let speed = 600;
 
 let flag = false;
-
 canvas.width = 400;
 canvas.height = 400;
 
@@ -68,7 +69,9 @@ function moving() {
     if (newPosition.x == seedX && newPosition.y == seedY) {
         score++;
         showScore();
-        generateSeed()
+        generateSeed();
+       speedGame();
+       
     } else {
         snake.pop();
     }
@@ -137,11 +140,21 @@ function resetGame() {
     run();
 }
 
+function speedGame() {
+    if (speed != 100) {
+        speed -= 50;  
+    }
+}
+
 generateSeed();
 run();
+
 function run() {
 
-    if (gameOver()) return;
+    if (gameOver()){
+        sound.play();
+        return;
+    } 
 
     setTimeout(() => {
         flag = false;
@@ -151,6 +164,6 @@ function run() {
         snakeDraw();
 
         run();
-    }, 100)
+    }, speed)
 }
 
